@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>{#advlink_dlg.title}</title>
+    <script type="text/javascript">
+        // Because there is no relative path to TinyMCE, we have to use JavaScript
+        // to work out correct path from the .js files from TinyMCE. Only files
+        // inside this plugin can be included with relative path (below).
+        var editor_tinymce_include = function(path) {
+            document.write('<script type="text/javascript" src="' +
+                    parent.tinyMCE.baseURL + '/' + path + '"></' + 'script>');
+        };
+        editor_tinymce_include('tiny_mce_popup.js');
+        editor_tinymce_include('utils/mctabs.js');
+		editor_tinymce_include('utils/form_utils.js');
+        editor_tinymce_include('utils/validate.js');
+		
+		 var get_skim_yesno = function(id, target_form_element, type, prefix) {
+				var option = prefix + "_" + type + "_browser_callback", cb, html;
+
+				cb = tinyMCEPopup.getParam(option, tinyMCEPopup.getParam("skim_yesnoparam"));
+
+				if (!cb)
+					return "";
+
+
+            html = cb;
+
+            return html;
+        }
+
+
+    </script>
+	<script type="text/javascript" src="js/skim.js"></script>
+	<link href="css/skim.css" rel="stylesheet" type="text/css" />
+</head>
+<body id="skim" style="display: none" role="application"  aria-labelledby="app_label">
+	<form name="source" onsubmit="return PasteTextDialog.insert();" action="#">
+		<div style="float: left" class="title">{#paste.paste_text_desc}</div>
+
+		<div style="float: right">
+			<input type="checkbox" name="linebreaks" id="linebreaks" class="wordWrapCode" checked="checked" /><label for="linebreaks">{#paste_dlg.text_linebreaks}</label>
+		</div>
+
+		<br style="clear: both" />
+
+		<div>{#paste_dlg.text_title}</div>
+		<div id="skim_container">&nbsp;</div>
+
+		<textarea id="content" name="content" rows="15" cols="100" style="width: 100%; height: 100%; font-family: 'Courier New',Courier,mono; font-size: 12px;" dir="ltr" wrap="soft" class="mceFocus"></textarea>
+
+		<div class="mceActionPanel">
+			<input type="submit" name="insert" value="{#insert}" id="insert" />
+			<input type="button" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" id="cancel" />
+		</div>
+	</form>
+</body>
+</html>

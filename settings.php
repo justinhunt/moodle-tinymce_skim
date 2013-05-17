@@ -26,8 +26,8 @@ defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
 
-   $options = array('0' => new lang_string('no', 'tinymce_skim'),
-			'1' => new lang_string('yes', 'tinymce_skim'));
+   $options = array('0' => get_string('no', 'tinymce_skim'),
+			'1' => get_string('yes', 'tinymce_skim'));
 
 				
 	$settings->add(new admin_setting_configselect('tinymce_skim/yesorno',

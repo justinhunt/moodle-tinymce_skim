@@ -29,5 +29,7 @@ $string['skim:desc'] = 'Skim Import';
 $string['skim:browse'] = 'Browse';
 $string['selectyesno'] = 'Yes or No?';
 $string['selectyesnodetails'] = 'A simple option to show how to get data from admin settings all the way down to javascript.';
+$string['yes'] = 'Yes';
+$string['no'] = 'No';
 
 

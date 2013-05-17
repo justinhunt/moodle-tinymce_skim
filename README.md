@@ -1,4 +1,4 @@
-moodle-tinymce_skim
-===================
+Skim Import
+==========
 
-Skim Annotation conversion tool for Moodle TinyMCE editor
+The Moodle Skim Import plugin for TinyMCE

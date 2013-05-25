@@ -33,4 +33,4 @@ $plugin->component = 'tinymce_skim';
 //beta
 $plugin->maturity  = MATURITY_BETA;
 // Human readable version informatiomn
-$plugin->release   = '1.0.0 (Build 2013051200)';
+$plugin->release   = '1.0.11 (Build 2013051200)';

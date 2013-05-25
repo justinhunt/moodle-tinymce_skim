@@ -26,12 +26,64 @@ defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
 
-   $options = array('0' => get_string('no', 'tinymce_skim'),
-			'1' => get_string('yes', 'tinymce_skim'));
-
-				
-	$settings->add(new admin_setting_configselect('tinymce_skim/yesorno',
-					   get_string('selectyesno', 'tinymce_skim'),
-					   get_string('selectyesnodetails', 'tinymce_skim'), 0,$options));
+   $coloroptions = array('transp' => get_string('transp', 'tinymce_skim'),
+   			'black' => get_string('black', 'tinymce_skim'),
+   			'ltblue' => get_string('ltblue', 'tinymce_skim'),
+			'blue' => get_string('blue', 'tinymce_skim'),
+			'dkblue' => get_string('dkblue', 'tinymce_skim'),
+			'ltyellow' => get_string('ltyellow', 'tinymce_skim'),
+			'yellow' => get_string('yellow', 'tinymce_skim'),
+			'dkyellow' => get_string('dkyellow', 'tinymce_skim'),
+			'ltred' => get_string('ltred', 'tinymce_skim'),
+			'red' => get_string('red', 'tinymce_skim'),
+			'dkred' => get_string('dkred', 'tinymce_skim'),
+			'ltgreen' => get_string('ltgreen', 'tinymce_skim'),
+			'green' => get_string('green', 'tinymce_skim'),
+			'dkgreen' => get_string('dkgreen', 'tinymce_skim'));
+			
+ $styleoptions = array('bold' => get_string('bold', 'tinymce_skim'),
+   			'italic' => get_string('italic', 'tinymce_skim'),
+   			'underline' => get_string('underline', 'tinymce_skim'),
+   			'strikeout' => get_string('strikeout', 'tinymce_skim'));
+   			
+   //TEXTNOTE
+   	$settings->add(	new admin_setting_heading('heading_textnote', get_string('heading_textnote', 'tinymce_skim'), ''));		
+   			
+   	//plain text forecolor		
+   	$settings->add(new admin_setting_configselect('tinymce_skim/forecolor_textnote',
+					   get_string('forecolor_textnote', 'tinymce_skim'),
+					   get_string('forecolor_textnote_details', 'tinymce_skim'), 'black',$coloroptions));	
+					   
+	//plain text backcolor		
+   	$settings->add(new admin_setting_configselect('tinymce_skim/backcolor_textnote',
+					   get_string('backcolor_textnote', 'tinymce_skim'),
+					   get_string('backcolor_textnote_details', 'tinymce_skim'), 'transp',$coloroptions));		
+   			
+	//plain text style
+	$styletextnotedefaults = array();
+	$settings->add(new admin_setting_configmulticheckbox('tinymce_skim/style_textnote',
+						   get_string('style_textnote', 'tinymce_skim'),
+						   get_string('style_textnote_details', 'tinymce_skim'), $styletextnotedefaults,$styleoptions));
+						   
+						   
+	 //HIGHLIGHT
+   	$settings->add(	new admin_setting_heading('heading_highlight', get_string('heading_highlight', 'tinymce_skim'), ''));	
+	
+	//highlight forecolor		
+   	$settings->add(new admin_setting_configselect('tinymce_skim/forecolor_highlight',
+					   get_string('forecolor_highlight', 'tinymce_skim'),
+					   get_string('forecolor_highlight_details', 'tinymce_skim'), 'black',$coloroptions));	
+					   
+	//highlight backcolor		
+   	$settings->add(new admin_setting_configselect('tinymce_skim/backcolor_highlight',
+					   get_string('backcolor_highlight', 'tinymce_skim'),
+					   get_string('backcolor_highlight_details', 'tinymce_skim'), 'ltyellow',$coloroptions));	
+		
+	//highlight style		   
+	$stylehighlightdefaults =  array('bold' => 1,'italic' => 1);
+	$settings->add(new admin_setting_configmulticheckbox('tinymce_skim/style_highlight',
+						   get_string('style_highlight', 'tinymce_skim'),
+						   get_string('style_highlight_details', 'tinymce_skim'), $stylehighlightdefaults,$styleoptions));
+		
 	  
 }

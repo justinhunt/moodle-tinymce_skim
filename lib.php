@@ -38,14 +38,16 @@ class tinymce_skim extends editor_tinymce_plugin {
 			return;
 		 }
 		 
-		 if($this->get_config('yesorno')=='0'){
-			$yesno = 'No.';
-		 }else{
-			$yesno = 'Yes.';
-		 }
 
 		// Supply a text parameter to JS
-		$params['skim_yesnoparam'] = "The admin said:" . $yesno;
+		$notetypes=array('textnote','anchorednote','highlight','circle','box','underline','strikeout');
+		foreach ($notetypes as $notetype){
+			$params['skim_forecolor_' . $notetype] = $this->get_config('forecolor_' .$notetype);
+			$params['skim_backcolor_' .$notetype] = $this->get_config('backcolor_' .$notetype);
+                        $params['skim_bordercolor_' .$notetype] = $this->get_config('bordercolor_' .$notetype);
+			$params['skim_style_' .$notetype] = $this->get_config('style_' .$notetype);
+                        $params['skim_border_' .$notetype] = $this->get_config('border_' .$notetype);
+		}
 		
         // Add button after 'unlink' in advancedbuttons3.
         $this->add_button_after($params, 3, 'skim', 'unlink');

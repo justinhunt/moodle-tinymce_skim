@@ -15,19 +15,7 @@
 		editor_tinymce_include('utils/form_utils.js');
         editor_tinymce_include('utils/validate.js');
 		
-		 var get_skim_yesno = function(id, target_form_element, type, prefix) {
-				var option = prefix + "_" + type + "_browser_callback", cb, html;
-
-				cb = tinyMCEPopup.getParam(option, tinyMCEPopup.getParam("skim_yesnoparam"));
-
-				if (!cb)
-					return "";
-
-
-            html = cb;
-
-            return html;
-        }
+	
 
 
     </script>

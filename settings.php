@@ -26,27 +26,136 @@ defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
 
-   $coloroptions = array('transp' => get_string('transp', 'tinymce_skim'),
-   			'black' => get_string('black', 'tinymce_skim'),
-   			'ltblue' => get_string('ltblue', 'tinymce_skim'),
-			'blue' => get_string('blue', 'tinymce_skim'),
-			'dkblue' => get_string('dkblue', 'tinymce_skim'),
-			'ltyellow' => get_string('ltyellow', 'tinymce_skim'),
-			'yellow' => get_string('yellow', 'tinymce_skim'),
-			'dkyellow' => get_string('dkyellow', 'tinymce_skim'),
-			'ltred' => get_string('ltred', 'tinymce_skim'),
-			'red' => get_string('red', 'tinymce_skim'),
-			'dkred' => get_string('dkred', 'tinymce_skim'),
-			'ltgreen' => get_string('ltgreen', 'tinymce_skim'),
-			'green' => get_string('green', 'tinymce_skim'),
-			'dkgreen' => get_string('dkgreen', 'tinymce_skim'));
+   $coloroptions = array('' => get_string('transp', 'tinymce_skim'),
+   			'#0' => get_string('black', 'tinymce_skim'),
+                        '#F2F2F2' => get_string('ltgrey', 'tinymce_skim'),
+			'#BDBDBD' => get_string('grey', 'tinymce_skim'),
+			'#424242' => get_string('dkgrey', 'tinymce_skim'),
+   			'#A9E2F3' => get_string('ltblue', 'tinymce_skim'),
+			'#2E2EFE' => get_string('blue', 'tinymce_skim'),
+			'#0B0B61' => get_string('dkblue', 'tinymce_skim'),
+			'#F3F781' => get_string('ltyellow', 'tinymce_skim'),
+			'#FFFF00' => get_string('yellow', 'tinymce_skim'),
+			'#868A08' => get_string('dkyellow', 'tinymce_skim'),
+			'#F5A9A9' => get_string('ltred', 'tinymce_skim'),
+			'#FF0000' => get_string('red', 'tinymce_skim'),
+			'#B40404' => get_string('dkred', 'tinymce_skim'),
+			'#A9F5A9' => get_string('ltgreen', 'tinymce_skim'),
+			'#00FF00' => get_string('green', 'tinymce_skim'),
+			'#0B610B' => get_string('dkgreen', 'tinymce_skim'));
+ 
 			
  $styleoptions = array('bold' => get_string('bold', 'tinymce_skim'),
    			'italic' => get_string('italic', 'tinymce_skim'),
    			'underline' => get_string('underline', 'tinymce_skim'),
    			'strikeout' => get_string('strikeout', 'tinymce_skim'));
+ 
+$borderoptions = array('none' => get_string('none', 'tinymce_skim'),
+   			'dotted' => get_string('dotted', 'tinymce_skim'),
+   			'dashed' => get_string('dashed', 'tinymce_skim'),
+                        'solid' => get_string('solid', 'tinymce_skim'),
+			'double' => get_string('double', 'tinymce_skim'));
+
+ 
+        // Declare the notetypes
+        $notetypes=array('textnote','anchorednote','highlight','circle','box','underline','strikeout');
+        
+        //set defaults
+        $forecolordefault= array();
+        $forecolordefault['textnote'] = "#0";
+        $forecolordefault['anchorednote'] = "#0";
+        $forecolordefault['highlight'] = "#0";
+        $forecolordefault['circle'] = "";
+        $forecolordefault['box'] = "";
+        $forecolordefault['underline'] = "";
+        $forecolordefault['strikeout'] = "";
+       
+        $backcolordefault= array();
+        $backcolordefault['textnote'] = "";
+        $backcolordefault['anchorednote'] = "";
+        $backcolordefault['highlight'] = "#F3F781";
+        $backcolordefault['circle'] = "#F3F781";
+        $backcolordefault['box'] =  "#F3F781";
+        $backcolordefault['underline'] =  "";
+        $backcolordefault['strikeout'] =  "";
+        
+        $styledefault = array();
+        $styledefault['textnote']=array();
+        $styledefault['anchorednote']=array('bold');
+        $styledefault['highlight']=array();
+        $styledefault['circle']=array();
+        $styledefault['box'] =array();
+        $styledefault['underline'] =array('underline');
+        $styledefault['strikeout'] =array('strikeout');
+        
+        $borderdefault = array();
+        $borderdefault['textnote']='none';
+        $borderdefault['anchorednote']='none';
+        $borderdefault['highlight']='none';
+        $borderdefault['circle']='solid';
+        $borderdefault['box'] ='solid';
+        $borderdefault['underline'] ='none';
+        $borderdefault['strikeout'] ='none';
+
+        $bordercolordefault= array();
+        $bordercolordefault['textnote'] = "";
+        $bordercolordefault['anchorednote'] = "";
+        $bordercolordefault['highlight'] = "";
+        $bordercolordefault['circle'] = "#FF0000";
+        $bordercolordefault['box'] =  "#2E2EFE";
+        $bordercolordefault['underline'] =  "";
+        $bordercolordefault['strikeout'] =  "";
+        
+        foreach ($notetypes as $notetype){
+            $settings->add(new admin_setting_heading('heading_' . $notetype, get_string('heading_' . $notetype, 'tinymce_skim'), ''));		
+            /*
+            //notetype forecolor		
+            $settings->add(new admin_setting_configcolourpicker('tinymce_skim/forecolor_' . $notetype,
+                                               get_string('forecolor', 'tinymce_skim'),
+                                               get_string('forecolor_details', 'tinymce_skim'), $forecolordefault[$notetype]));	
+            
+          
+            $settings->add(new admin_setting_configcolourpicker('tinymce_skim/backcolor_' . $notetype,
+                                               get_string('backcolor', 'tinymce_skim'),
+                                               get_string('backcolor_details', 'tinymce_skim'), $backcolordefault[$notetype]));		
+             */
+
+            $settings->add(new admin_setting_configselect('tinymce_skim/forecolor_' . $notetype,
+					   get_string('forecolor', 'tinymce_skim'),
+					   get_string('forecolor_details', 'tinymce_skim'), $forecolordefault[$notetype],$coloroptions));	
+
+            $settings->add(new admin_setting_configselect('tinymce_skim/backcolor_' . $notetype,
+					   get_string('backcolor', 'tinymce_skim'),
+					   get_string('backcolor_details', 'tinymce_skim'), $backcolordefault[$notetype],$coloroptions));	
+
+            
+            //notetype style
+            $settings->add(new admin_setting_configmulticheckbox('tinymce_skim/style_' . $notetype,
+                                                       get_string('style', 'tinymce_skim'),
+                                                       get_string('style_details','tinymce_skim'), $styledefault[$notetype],$styleoptions));
+
+        
+            //notetype border		
+            $settings->add(new admin_setting_configselect('tinymce_skim/border_' . $notetype,
+					   get_string('border', 'tinymce_skim'),
+					   get_string('border_details', 'tinymce_skim'), $borderdefault[$notetype],$borderoptions));	
+	
+            //notetype border color
+            /*
+            $settings->add(new admin_setting_configcolourpicker('tinymce_skim/bordercolor_' . $notetype,
+                                               get_string('bordercolor', 'tinymce_skim'),
+                                               get_string('bordercolor_details', 'tinymce_skim'), $bordercolordefault[$notetype]));		
+            */
+            $settings->add(new admin_setting_configselect('tinymce_skim/bordercolor_' . $notetype,
+					   get_string('bordercolor', 'tinymce_skim'),
+					   get_string('bordercolor_details', 'tinymce_skim'), $bordercolordefault[$notetype],$coloroptions));	
+
+            
+            
+        }//end of for loop
+        /*
    			
-   //TEXTNOTE
+   //TEXTNOTE       
    	$settings->add(	new admin_setting_heading('heading_textnote', get_string('heading_textnote', 'tinymce_skim'), ''));		
    			
    	//plain text forecolor		
@@ -85,5 +194,5 @@ if ($ADMIN->fulltree) {
 						   get_string('style_highlight', 'tinymce_skim'),
 						   get_string('style_highlight_details', 'tinymce_skim'), $stylehighlightdefaults,$styleoptions));
 		
-	  
-}
+	  */
+}//end of if admin full tree

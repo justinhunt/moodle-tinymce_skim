@@ -28,7 +28,7 @@ if ($ADMIN->fulltree) {
 
    $coloroptions = array('' => get_string('transp', 'tinymce_skim'),
    			'#0' => get_string('black', 'tinymce_skim'),
-                        '#F2F2F2' => get_string('ltgrey', 'tinymce_skim'),
+            '#F2F2F2' => get_string('ltgrey', 'tinymce_skim'),
 			'#BDBDBD' => get_string('grey', 'tinymce_skim'),
 			'#424242' => get_string('dkgrey', 'tinymce_skim'),
    			'#A9E2F3' => get_string('ltblue', 'tinymce_skim'),
@@ -53,7 +53,7 @@ if ($ADMIN->fulltree) {
 $borderoptions = array('none' => get_string('none', 'tinymce_skim'),
    			'dotted' => get_string('dotted', 'tinymce_skim'),
    			'dashed' => get_string('dashed', 'tinymce_skim'),
-                        'solid' => get_string('solid', 'tinymce_skim'),
+            'solid' => get_string('solid', 'tinymce_skim'),
 			'double' => get_string('double', 'tinymce_skim'));
 
  
@@ -63,17 +63,17 @@ $borderoptions = array('none' => get_string('none', 'tinymce_skim'),
         //set defaults
         $forecolordefault= array();
         $forecolordefault['textnote'] = "#0";
-        $forecolordefault['anchorednote'] = "#0";
+        $forecolordefault['anchorednote'] = "#0B610B";
         $forecolordefault['highlight'] = "#0";
         $forecolordefault['circle'] = "";
         $forecolordefault['box'] = "";
-        $forecolordefault['underline'] = "";
+        $forecolordefault['underline'] = "#FF0000";
         $forecolordefault['strikeout'] = "";
        
         $backcolordefault= array();
-        $backcolordefault['textnote'] = "";
+        $backcolordefault['textnote'] = "#F3F781";
         $backcolordefault['anchorednote'] = "";
-        $backcolordefault['highlight'] = "#F3F781";
+        $backcolordefault['highlight'] = "";
         $backcolordefault['circle'] = "#F3F781";
         $backcolordefault['box'] =  "#F3F781";
         $backcolordefault['underline'] =  "";
@@ -85,8 +85,8 @@ $borderoptions = array('none' => get_string('none', 'tinymce_skim'),
         $styledefault['highlight']=array();
         $styledefault['circle']=array();
         $styledefault['box'] =array();
-        $styledefault['underline'] =array('underline');
-        $styledefault['strikeout'] =array('strikeout');
+        $styledefault['underline'] =array();
+        $styledefault['strikeout'] =array('strikeout' => 1);
         
         $borderdefault = array();
         $borderdefault['textnote']='none';

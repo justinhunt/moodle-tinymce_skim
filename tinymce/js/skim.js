@@ -6,15 +6,17 @@ tinyMCEPopup.requireLangPack();
 var tinymce_skim_Dialog = {
          getdivfornote : function(stylekey) {
 		 //create a format div with inline styles for each type of note
+		 	//var tagtype="div";
+		 	var tagtype="span";
 		 
-            var rawstyle = "<div style='display: inline; background: @backcolor; color: @forecolor; font-weight: @bold; border: @border @bordercolor 1px; font-style: @italic; text-decoration: @underline @strikeout'>";
+            var rawstyle = "<" + tagtype + " style='display: inline; background: @backcolor; color: @forecolor; font-weight: @bold; border: @border @bordercolor 1px; font-style: @italic; text-decoration: @underline @strikeout'>";
             var defstyle='';
             
             //if no style key found, just return and be done with it.
             if (stylekey==''){return false};
             //if 'line' or 'freehand' we just return an empty div to keep things consistent when parsing
             if(stylekey=='line' || stylekey=='freehand'){
-                return '<div>'; 
+                return '<'+ tagtype +'>'; 
             }
             
             //if we have a style key, split out the raw style for the defined style
@@ -34,7 +36,6 @@ var tinymce_skim_Dialog = {
 			defstyle = defstyle.replace('@strikeout',strikeoutvalue);
             defstyle = defstyle.replace('@border',tinyMCEPopup.getParam('skim_border_' + stylekey));
             
-            //defstyle="bb<div style='font-weight: bold;'>";
             return defstyle;
         },
         determinestyle : function(aline) {
@@ -69,6 +70,8 @@ var tinymce_skim_Dialog = {
 		//the main function which parses all the notes and returns the formatted html
 		//it is complex because of nested notes. we need to determine e.g. if an underline note
 		//should be shown standalone or within the immediate previous highlight note.
+			//var tagtype="div";
+		 	var tagtype="span";
 		
             var content, retcontent, currentpage,pj,cj,parentpage,parentstyle,currentnote,currentstyle,lines;
             var parentnote = new Array();
@@ -110,7 +113,7 @@ var tinymce_skim_Dialog = {
 									//add page number to end of parent note, removing trailing new lines in process
 									parentnote = this.arraytrim(parentnote);
 									parentnote[parentnote.length -1] += ' (p. ' + parentpage  + ')';
-                                    retcontent += '<br/>' + parentstyle + parentnote.join('<br />') + '</div>';
+                                    retcontent += '<p>' + parentstyle + parentnote.join('<br />') + '</' + tagtype + '></p>';
                                     parentstyle = currentstyle;
                                     parentnote = currentnote;
                                     parentpage = currentpage;
@@ -136,14 +139,14 @@ var tinymce_skim_Dialog = {
                     //add page number to end of parent note, removing trailing new lines in process
 					parentnote = this.arraytrim(parentnote);
 					parentnote[parentnote.length -1] += ' (p. ' + parentpage  + ')';
-					retcontent += '<br/>' + parentstyle + parentnote.join('<br />') + '</div>';
+					retcontent += '<p>' + parentstyle + parentnote.join('<br />') + '</' + tagtype + '></p>';
                     parentstyle = currentstyle;
                     parentnote = currentnote;
                     parentpage = currentpage;
                  }
 				 parentnote = this.arraytrim(parentnote);
                  parentnote[parentnote.length -1] += ' (p. ' + parentpage  + ')';
-				 retcontent += '<br/>' + parentstyle + parentnote.join('<br />') + '</div>';
+				 retcontent += '<p>' + parentstyle + parentnote.join('<br />') + '</p></' + tagtype + '></p>';
                     
             }//close the lines.length condition
             return retcontent;
@@ -160,10 +163,13 @@ var tinymce_skim_Dialog = {
 		mergenotes : function(parentnote,currentnote,currentstyle){
 		//merge a note(eg an underline) inside a parent note(eg highlight)
 		
+		//var tagtype="div";
+		 	var tagtype="span";
+		
 			for (var pi=0;pi<parentnote.length;pi++){
 				for (var ci=0;ci<currentnote.length;ci++){
 					if(currentnote[ci].tinymce_skim_trim() !=''){
-						var replacednote = parentnote[pi].replace(currentnote[ci],currentstyle + '&nbsp;' + currentnote[ci] + '&nbsp;</div>');
+						var replacednote = parentnote[pi].replace(currentnote[ci],currentstyle + '&nbsp;' + currentnote[ci] + '&nbsp;</' + tagtype + '>');
 						if(replacednote != parentnote[pi]){
 							parentnote[pi] = replacednote;
 							break;

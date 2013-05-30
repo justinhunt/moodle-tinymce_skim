@@ -42,7 +42,7 @@ if ($ADMIN->fulltree) {
 			'#B40404' => get_string('dkred', 'tinymce_skim'),
 			'#A9F5A9' => get_string('ltgreen', 'tinymce_skim'),
 			'#00FF00' => get_string('green', 'tinymce_skim'),
-			'#0B610B' => get_string('dkgreen', 'tinymce_skim'));
+			'#004500' => get_string('dkgreen', 'tinymce_skim'));
  
 			
  $styleoptions = array('bold' => get_string('bold', 'tinymce_skim'),
@@ -63,7 +63,7 @@ $borderoptions = array('none' => get_string('none', 'tinymce_skim'),
         //set defaults
         $forecolordefault= array();
         $forecolordefault['textnote'] = "#000001";
-        $forecolordefault['anchorednote'] = "#0B610B";
+        $forecolordefault['anchorednote'] = "#004500";
         $forecolordefault['highlight'] = "#000001";
         $forecolordefault['circle'] = "";
         $forecolordefault['box'] = "";

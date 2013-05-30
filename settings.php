@@ -121,23 +121,23 @@ $borderoptions = array('none' => get_string('none', 'tinymce_skim'),
              */
 
             $settings->add(new admin_setting_configselect('tinymce_skim/forecolor_' . $notetype,
-					   get_string('forecolor', 'tinymce_skim'),
+					   get_string($notetype, 'tinymce_skim') . get_string('forecolor', 'tinymce_skim'),
 					   get_string('forecolor_details', 'tinymce_skim'), $forecolordefault[$notetype],$coloroptions));	
 
             $settings->add(new admin_setting_configselect('tinymce_skim/backcolor_' . $notetype,
-					   get_string('backcolor', 'tinymce_skim'),
+					    get_string($notetype, 'tinymce_skim') . get_string('backcolor', 'tinymce_skim'),
 					   get_string('backcolor_details', 'tinymce_skim'), $backcolordefault[$notetype],$coloroptions));	
 
             
             //notetype style
             $settings->add(new admin_setting_configmulticheckbox('tinymce_skim/style_' . $notetype,
-                                                       get_string('style', 'tinymce_skim'),
+                                                        get_string($notetype, 'tinymce_skim') . get_string('style', 'tinymce_skim'),
                                                        get_string('style_details','tinymce_skim'), $styledefault[$notetype],$styleoptions));
 
         
             //notetype border		
             $settings->add(new admin_setting_configselect('tinymce_skim/border_' . $notetype,
-					   get_string('border', 'tinymce_skim'),
+					    get_string($notetype, 'tinymce_skim') . get_string('border', 'tinymce_skim'),
 					   get_string('border_details', 'tinymce_skim'), $borderdefault[$notetype],$borderoptions));	
 	
             //notetype border color
@@ -147,7 +147,7 @@ $borderoptions = array('none' => get_string('none', 'tinymce_skim'),
                                                get_string('bordercolor_details', 'tinymce_skim'), $bordercolordefault[$notetype]));		
             */
             $settings->add(new admin_setting_configselect('tinymce_skim/bordercolor_' . $notetype,
-					   get_string('bordercolor', 'tinymce_skim'),
+					   get_string($notetype, 'tinymce_skim') .  get_string('bordercolor', 'tinymce_skim'),
 					   get_string('bordercolor_details', 'tinymce_skim'), $bordercolordefault[$notetype],$coloroptions));	
 
             

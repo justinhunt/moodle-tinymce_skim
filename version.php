@@ -25,7 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 // The current plugin version (Date: YYYYMMDDXX).
-$plugin->version   = 2013053000;
+$plugin->version   = 2013053002;
 // Required Moodle version.
 $plugin->requires  = 2012112900;
 // Component Name - Moodle uses this as unique id for plugin
@@ -33,4 +33,4 @@ $plugin->component = 'tinymce_skim';
 //beta
 $plugin->maturity  = MATURITY_BETA;
 // Human readable version informatiomn
-$plugin->release   = '1.0.11 (Build 2013052901)';
+$plugin->release   = '1.0.11 (Build 2013053002)';

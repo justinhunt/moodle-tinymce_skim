@@ -5,7 +5,9 @@ tinyMCEPopup.requireLangPack();
 
 var tinymce_skim_Dialog = {
          getdivfornote : function(stylekey) {
-            var rawstyle = "<div style='display: inline; background: @backcolor; color: @forecolor; font-weight: @bold; border: @border @border-color 1px; font-style: @italic; text-decoration: @underline @strikeout'>";
+		 //create a format div with inline styles for each type of note
+		 
+            var rawstyle = "<div style='display: inline; background: @backcolor; color: @forecolor; font-weight: @bold; border: @border @bordercolor 1px; font-style: @italic; text-decoration: @underline @strikeout'>";
             var defstyle='';
             
             //if no style key found, just return and be done with it.
@@ -36,6 +38,8 @@ var tinymce_skim_Dialog = {
             return defstyle;
         },
         determinestyle : function(aline) {
+		 //from a given line of text extract the note type if it is a note header (ret. false if not)
+		 
              var stylekey=false;
           
           //determine the style to apply
@@ -62,16 +66,23 @@ var tinymce_skim_Dialog = {
     
         },
         convertrtf : function() {
-            var content, retcontent, currentpage,nospacecurrentnote,parentpage,parentnote,parentstyle,currentnote,currentstyle,lines;
+		//the main function which parses all the notes and returns the formatted html
+		//it is complex because of nested notes. we need to determine e.g. if an underline note
+		//should be shown standalone or within the immediate previous highlight note.
+		
+            var content, retcontent, currentpage,pj,cj,parentpage,parentstyle,currentnote,currentstyle,lines;
+            var parentnote = new Array();
+            var currentnote = new Array();
+            
             content = tinyMCEPopup.dom.encode(document.getElementById('content').value);
             lines = content.split(/\r?\n/);
             retcontent = '';
             parentstyle = '';
-            parentnote = '';
             parentpage='0';
             currentstyle ='';
-            currentnote ='';
             currentpage='0';
+            pj='';
+            cj='';
 
 			//loop through each line of RTF
             if (lines.length > 1) {
@@ -81,53 +92,101 @@ var tinymce_skim_Dialog = {
                     var stylekey = this.determinestyle(row);
                     if (stylekey){
                         //since this is a new note, the prev note is complete, process it
+							//If this is the second discovered note, we don't have a parent yet, create one
                            if(parentstyle=='' && currentstyle !=''){
                                 parentstyle = currentstyle;
                                 parentnote = currentnote;
                                 parentpage = currentpage;
+							//else if we have a parent note, merge this with current or create new parent
                             }else if(parentstyle!=''){
-								nospacecurrentnote = currentnote.replace('<br />','');
-                                if(parentnote.indexOf(nospacecurrentnote)>-1 && parentpage==currentpage){
-                                    parentnote = parentnote.replace(nospacecurrentnote, '&nbsp;' + currentstyle + nospacecurrentnote + '</div>&nbsp;');
+								//check if we should merge current with parent
+                            	pj = parentnote.join('');
+                            	cj= currentnote.join('');
+                                if(pj.indexOf(cj)>-1 && parentpage==currentpage){
+									parentnote = this.mergenotes(parentnote,currentnote,currentstyle);
+									
+								//if no merge required, set old parent to retcontent and set currentnote as new parent
                                 }else{
-                                    retcontent += '' + parentstyle + parentnote + '(p. ' + parentpage  + ')<br /></div>';
+									//add page number to end of parent note, removing trailing new lines in process
+									parentnote = this.arraytrim(parentnote);
+									parentnote[parentnote.length -1] += ' (p. ' + parentpage  + ')';
+                                    retcontent += '<br/>' + parentstyle + parentnote.join('<br />') + '</div>';
                                     parentstyle = currentstyle;
                                     parentnote = currentnote;
                                     parentpage = currentpage;
                                 }
                             }
                             //set up new note
-                            currentnote ='';
+                            currentnote = new Array();
                             currentstyle = stylekey;
                             currentpage = this.getpage(row);
                         
                     }else{
-                       currentnote +=  row + '<br />';
+                       currentnote.push(row) ;
                     }//end of styline check
                 }//end of for loop
                 
                 //tidy up the final parent and current notes
-				nospacecurrentnote = currentnote.replace('<br />','');
-                 if(parentnote.indexOf(nospacecurrentnote)>-1 && parentpage==currentpage){
-                    parentnote = parentnote.replace(nospacecurrentnote, '&nbsp;' + currentstyle + nospacecurrentnote + '</div>&nbsp;');
+                 pj = parentnote.join(' ');
+				cj= currentnote.join(' ');
+				if(pj.indexOf(cj)>-1 && parentpage==currentpage){
+					parentnote = this.mergenotes(parentnote,currentnote,currentstyle);
+                    
                  }else{
-                    retcontent += '' + parentstyle + parentnote + '(p. ' + parentpage  + ')<br /></div>';
+                    //add page number to end of parent note, removing trailing new lines in process
+					parentnote = this.arraytrim(parentnote);
+					parentnote[parentnote.length -1] += ' (p. ' + parentpage  + ')';
+					retcontent += '<br/>' + parentstyle + parentnote.join('<br />') + '</div>';
                     parentstyle = currentstyle;
                     parentnote = currentnote;
                     parentpage = currentpage;
                  }
-                 retcontent += parentstyle + parentnote + '(p. ' + parentpage + ')</div>';
+				 parentnote = this.arraytrim(parentnote);
+                 parentnote[parentnote.length -1] += ' (p. ' + parentpage  + ')';
+				 retcontent += '<br/>' + parentstyle + parentnote.join('<br />') + '</div>';
                     
             }//close the lines.length condition
             return retcontent;
             
         },
+		arraytrim : function(thearray){
+		//trim the trailing array members which may contain empty lines
+		
+			while(thearray.length > 1 && thearray[thearray.length -1].tinymce_skim_trim() == ''){
+						thearray.pop();
+			}
+			return thearray;
+		},
+		mergenotes : function(parentnote,currentnote,currentstyle){
+		//merge a note(eg an underline) inside a parent note(eg highlight)
+		
+			for (var pi=0;pi<parentnote.length;pi++){
+				for (var ci=0;ci<currentnote.length;ci++){
+					if(currentnote[ci].tinymce_skim_trim() !=''){
+						var replacednote = parentnote[pi].replace(currentnote[ci],currentstyle + '&nbsp;' + currentnote[ci] + '&nbsp;</div>');
+						if(replacednote != parentnote[pi]){
+							parentnote[pi] = replacednote;
+							break;
+						}
+					}
+				}
+			}
+			return parentnote;
+		
+		},
         getpage : function(aline) {
-		var page = aline.split(', page ');
+		//from a note header line, extract the page number
+		
+			var page = aline.split(', page ');
                 return page[1];
         },
         init : function() {
-		this.resize();
+				this.resize();
+				
+				String.prototype.tinymce_skim_trim = function() {
+					return this.replace(/^\s+|\s+$/g,"");
+				}
+				
                 tinymce_skim_div_textnote = this.getdivfornote('textnote');
                 tinymce_skim_div_highlight = this.getdivfornote('highlight');
                 tinymce_skim_div_anchorednote = this.getdivfornote('anchorednote');
@@ -141,10 +200,9 @@ var tinymce_skim_Dialog = {
 	},
 	insert : function() {
                 
-                var convtext = this.convertrtf();
-
-		//tinyMCEPopup.editor.execCommand('mceInsertClipboardContent', false, {content : convtext});
-                tinyMCEPopup.editor.execCommand('mceInsertContent', false, convtext);
+         var convtext = this.convertrtf();
+        tinyMCEPopup.editor.execCommand('mceInsertContent', false, convtext);
+		//tinyMCEPopup.editor.setContent(convtext, {source_view : true});
 		tinyMCEPopup.close();
 	},
 

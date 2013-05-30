@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die;
 if ($ADMIN->fulltree) {
 
    $coloroptions = array('' => get_string('transp', 'tinymce_skim'),
-   			'#0' => get_string('black', 'tinymce_skim'),
+   			'#000001' => get_string('black', 'tinymce_skim'),
             '#F2F2F2' => get_string('ltgrey', 'tinymce_skim'),
 			'#BDBDBD' => get_string('grey', 'tinymce_skim'),
 			'#424242' => get_string('dkgrey', 'tinymce_skim'),
@@ -62,9 +62,9 @@ $borderoptions = array('none' => get_string('none', 'tinymce_skim'),
         
         //set defaults
         $forecolordefault= array();
-        $forecolordefault['textnote'] = "#0";
+        $forecolordefault['textnote'] = "#000001";
         $forecolordefault['anchorednote'] = "#0B610B";
-        $forecolordefault['highlight'] = "#0";
+        $forecolordefault['highlight'] = "#000001";
         $forecolordefault['circle'] = "";
         $forecolordefault['box'] = "";
         $forecolordefault['underline'] = "#FF0000";

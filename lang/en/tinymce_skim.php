@@ -25,8 +25,9 @@
 $string['pluginname'] = 'Skim Import';
 
 /* All lang strings used from TinyMCE JavaScript code must be named 'pluginname:stringname'.*/
-$string['skim:desc'] = 'Skim Import';
-$string['skim:browse'] = 'Browse';
+$string['skim:title'] = 'Skim Import Dialog';
+$string['skim:desc'] = 'Import Skim PDF Tool RTF Files';
+$string['skim:pastedetails'] = 'Paste the RTF text into the area below (keyboard ctrl + V) and press insert.';
 $string['transp'] = 'no color';
 $string['none'] = 'none';
 $string['dotted'] = 'dotted';

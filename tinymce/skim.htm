@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>{#advlink_dlg.title}</title>
+	<title>{#skim.title}</title>
     <script type="text/javascript">
         // Because there is no relative path to TinyMCE, we have to use JavaScript
         // to work out correct path from the .js files from TinyMCE. Only files
@@ -24,15 +24,11 @@
 </head>
 <body id="skim" style="display: none" role="application"  aria-labelledby="app_label">
 	<form name="source" onsubmit="return tinymce_skim_Dialog.insert();" action="#">
-		<div style="float: left" class="title">{#paste.paste_text_desc}</div>
-
-		<div style="float: right">
-			<input type="checkbox" name="linebreaks" id="linebreaks" class="wordWrapCode" checked="checked" /><label for="linebreaks">{#paste_dlg.text_linebreaks}</label>
-		</div>
+		<div style="float: left" class="title">{#skim.desc}</div>
 
 		<br style="clear: both" />
 
-		<div>{#paste_dlg.text_title}</div>
+		<div>{#skim.pastedetails}</div>
 		<div id="skim_container">&nbsp;</div>
 
 		<textarea id="content" name="content" rows="15" cols="100" style="width: 100%; height: 100%; font-family: 'Courier New',Courier,mono; font-size: 12px;" dir="ltr" wrap="soft" class="mceFocus"></textarea>

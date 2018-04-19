@@ -15,19 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Privacy Subsystem implementation for Tinymce Poodll.
+ * Privacy Subsystem implementation for Tinymce Skim.
  *
- * @package    tinymce_poodll
+ * @package    tinymce_skim
  * @copyright  2018 Justin Hunt https://poodll.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace tinymce_poodll\privacy;
+namespace tinymce_skim\privacy;
 
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Privacy Subsystem for tinymce_poodll implementing null_provider.
+ * Privacy Subsystem for tinymce_skim implementing null_provider.
  *
  * @copyright  2018 Justin Hunt https://poodll.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

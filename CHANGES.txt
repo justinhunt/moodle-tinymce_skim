@@ -1,26 +1,5 @@
 Change List
 =========
-
-Version 3.1.0(Build 2018041000)
+Version 1.1.0(Build 2018041000)
 -Implemented new Moodle Privacy API
-
-Version 2017020701
-Removed references to red5
-
-
-Version 2017080401
-Fixes some bad formatiing in popup
-
-Version 2016081402
-Added new HTML5 snapshot taker
-
-Version 2016081401
-Added support for callbackjs in new amd uploader system
-Made drawingboard the default whiteboard
-
-Version 2015121102
-Added jquery so that the drawingboard.js doesn't fail
-
-Version 2015121101
-Support for refactored PoodLL filter and support for Moodle 3.0
 

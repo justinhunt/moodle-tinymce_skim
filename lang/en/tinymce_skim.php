@@ -80,3 +80,4 @@ $string['circle'] = 'Circle ';
 $string['box'] = 'Box ';
 $string['underline'] = 'Underline ';
 $string['strikeout'] = 'Strikeout ';
+$string['privacy:metadata'] = 'The TinyMCE Skim plugin does not store any personal data.';

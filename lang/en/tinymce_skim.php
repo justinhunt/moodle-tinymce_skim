@@ -28,6 +28,7 @@ $string['pluginname'] = 'Skim Import';
 $string['skim:title'] = 'Skim Import Dialog';
 $string['skim:desc'] = 'Import Skim PDF Tool RTF Files';
 $string['skim:pastedetails'] = 'Paste the RTF text into the area below (keyboard ctrl + V) and press insert.';
+$string['skim:visible'] = 'Show Skim';
 $string['transp'] = 'no color';
 $string['none'] = 'none';
 $string['dotted'] = 'dotted';
